@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>bot</groupId>
-    <artifactId>discord-bot</artifactId>
+    <groupId>dev.insaneduck</groupId>
+    <artifactId>bot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -85,7 +85,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        bot.main.Bot
+                                        dev.insaneduck.bot.main.Bot
                                     </mainClass>
                                 </manifest>
                             </archive>

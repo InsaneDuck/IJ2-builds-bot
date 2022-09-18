@@ -1,4 +1,4 @@
-package bot.modal;
+package dev.insaneduck.bot.modal;
 
 import lombok.Data;
 

@@ -1,9 +1,9 @@
-package bot.test;
+package dev.insaneduck.bot.test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import bot.modal.Build;
+import dev.insaneduck.bot.modal.Build;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

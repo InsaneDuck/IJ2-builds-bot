@@ -1,8 +1,8 @@
-package bot.main;
+package dev.insaneduck.bot.main;
 
-import bot.listeners.BuildListener;
-import bot.listeners.SlashCommands;
-import bot.listeners.UtilityListener;
+import dev.insaneduck.bot.listeners.BuildListener;
+import dev.insaneduck.bot.listeners.SlashCommands;
+import dev.insaneduck.bot.listeners.UtilityListener;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.dv8tion.jda.api.OnlineStatus;
