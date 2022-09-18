@@ -19,13 +19,19 @@ import java.nio.charset.StandardCharsets;
 
 public class Bot
 {
+    DefaultShardManagerBuilder builder;
+    ShardManager shardManager;
     public static void main(String[] args) throws IOException, LoginException
     {
         if(args.length>0)
         {
+            File configFile = new File(args[0]);
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode config = objectMapper.readTree(new File(args[0]));
-            Bot bot = new Bot(config.get("TOKEN").asText(),config.get("commandsJSON").asText(),config.get("buildsJSON").asText());
+            JsonNode config = objectMapper.readTree(configFile);
+            String commands = FileUtils.readFileToString(new File(config.get("commandsJSON").asText()), StandardCharsets.UTF_8);
+            String builds = FileUtils.readFileToString(new File(config.get("buildsJSON").asText()), StandardCharsets.UTF_8);
+            Bot bot = new Bot(config.get("TOKEN").asText(),commands,builds);
+            bot.startBot();
         }
         else
         {
@@ -33,15 +39,17 @@ public class Bot
         }
     }
 
-    public Bot(String TOKEN,String commandsJSON, String buildsJSON) throws IOException, LoginException
+    public Bot(String TOKEN,String commands, String builds)
     {
-        String commands = FileUtils.readFileToString(new File(commandsJSON), StandardCharsets.UTF_8);
-        String builds = FileUtils.readFileToString(new File(buildsJSON), StandardCharsets.UTF_8);
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT);
+        builder = DefaultShardManagerBuilder.createDefault(TOKEN, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.listening("build commands"));
         builder.addEventListeners(new SlashCommands(commands),new BuildListener(builds),new UtilityListener());
-        ShardManager shardManager = builder.build();
+    }
+
+    void startBot() throws LoginException
+    {
+        shardManager = builder.build();
     }
 
 }
